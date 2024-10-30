@@ -67,7 +67,7 @@ def vogel(S: list[int], C: list[list[int]], D: list[int]) -> list[list[int]]:
         allocation[i][j] = amount
         S[i] -= amount
         D[j] -= amount
-        
+
         # replacing cells with demand = 0 or supply = 0 with pseudo infinity
         C = [
             [
@@ -113,7 +113,7 @@ def main():
         table = pd.DataFrame(C)
         table["Supply"] = S
         table.loc["Demand"] = D + [sum(D)]
-        table.index.name = 'B\\A'
+        table.index.name = 'Source\\Destination'
         if (sum(S) != sum(D)):
             print("The problem is not balanced!")
             return
