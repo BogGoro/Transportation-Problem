@@ -41,9 +41,8 @@ def vogel(S: list[int], C: list[list[int]], D: list[int]) -> list[list[int]]:
             if D[i] != 0 else -1
             for i in range(len(D))
         ]
-
-        diff_list = [min_diff_in_rows]
-        diff_list.append(min_diff_in_columns)
+        diff_list = [min_diff_in_rows + [-1 for _ in range(len(D) - len(S))]]
+        diff_list.append(min_diff_in_columns + [-1 for _ in range(len(S) - len(D))])
         diff_list = np.array(diff_list)
 
         i, j = np.unravel_index(np.argmax(diff_list), diff_list.shape)
@@ -57,7 +56,7 @@ def vogel(S: list[int], C: list[list[int]], D: list[int]) -> list[list[int]]:
             for k in range(len(D))
         ])
         if i:
-            i = np.unravel_index(np.argmin(basic_variable_arr), basic_variable_arr.shape)
+            i = np.unravel_index(np.argmin(basic_variable_arr), basic_variable_arr.shape)[0]
         else:
             i = j
             j = np.unravel_index(np.argmin(basic_variable_arr), basic_variable_arr.shape)[0]
@@ -121,7 +120,7 @@ def main():
         solution2 = vogel(S.copy(), C.copy(), D.copy())
         solution3 = russel(S.copy(), C, D.copy())
         print(tabulate(table, headers = 'keys', tablefmt = 'psql'))
-        print("North-West method: ", solution1)
+        print("North-West corner method: ", solution1)
         print("Vogel's approximation method: ", solution2)
         print("Russell's approximation method: ", solution3)
     except Exception:
