@@ -1,4 +1,4 @@
-# Simplex method for maximization
+# Transportation problem
 
 ### Input:
 
